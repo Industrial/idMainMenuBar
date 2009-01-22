@@ -4,13 +4,13 @@ local TL, TC, TR = 'TOPLEFT', 'TOP', 'TOPRIGHT'
 local ML, MC, MR = 'LEFT', 'CENTER', 'RIGHT'
 local BL, BC, BR = 'BOTTOMLEFT', 'BOTTOM', 'BOTTOMRIGHT'
 
+local eventframe = CreateFrame('Frame')
+
 local padding = 1
 local buttons_per_bar = 12
-
-local function hide (x)
-	x:Hide()
-	x:SetScript('OnShow', x.Hide)
-end
+local bar1
+local bar2
+local bar3
 
 local function nothing(...) end
 
@@ -59,18 +59,31 @@ end
 local function hookHideGrid (button)
 	button:Show()
 end
-hooksecurefunc('ActionButton_HideGrid', hookHideGrid)
 
-local barframe1 = bar('idMainMenuBar1', 'ActionButton', padding)
-local barframe2 = bar('MultiBarBottomLeft', 'MultiBarBottomLeftButton', padding)
-local barframe3 = bar('MultiBarBottomRight', 'MultiBarBottomRightButton', padding)
+function enable ()
+	bar1 = bar('idMainMenuBar1', 'ActionButton', padding)
+	bar2 = bar('MultiBarBottomLeft', 'MultiBarBottomLeftButton', padding)
+	bar3 = bar('MultiBarBottomRight', 'MultiBarBottomRightButton', padding)
 
-_G.UIPARENT_MANAGED_FRAME_POSITIONS['MultiBarBottomLeft'] = nil
-_G.UIPARENT_MANAGED_FRAME_POSITIONS['MultiBarBottomRight'] = nil
+	_G.UIPARENT_MANAGED_FRAME_POSITIONS['MultiBarBottomLeft'] = nil
+	_G.UIPARENT_MANAGED_FRAME_POSITIONS['MultiBarBottomRight'] = nil
 
-barframe1:SetPoint(BC, UIParent, BC, 0, padding)
-barframe2:SetPoint(BC, barframe1, TC, 0, padding)
-barframe3:SetPoint(BC, barframe2, TC, 0, padding)
+	bar1:SetPoint(BC, UIParent, BC, 0, padding)
+	bar2:SetPoint(BC, bar1, TC, 0, padding)
+	bar3:SetPoint(BC, bar2, TC, 0, padding)
 
-hide(MainMenuBar)
+	MainMenuBar:Hide()
+	MainMenuBar.Show = nothing
+
+	hooksecurefunc('ActionButton_HideGrid', hookHideGrid)
+end
+
+function onevent (frame, event, ...)
+	if event == 'PLAYER_LOGIN' then
+		enable()
+	end
+end
+
+eventframe:SetScript('OnEvent', onevent)
+eventframe:RegisterEvent('PLAYER_LOGIN')
 
