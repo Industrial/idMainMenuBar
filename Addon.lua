@@ -16,15 +16,24 @@ local function nothing(...) end
 
 local function process_button (button)
 	local name = button:GetName()
+	local icon = _G[name .. 'Icon']
 	local texture = (_G[name .. i .. 'NormalTexture2'] or _G[name .. i .. 'NormalTexture'])
+	local macrotext = _G[name .. 'Name']
 
 	button:ClearAllPoints()
+	button:Show()
+
+	icon:SetTexCoord(0.08,0.92,0.08,0.92)
+
+	macrotext:Hide()
+
+	texture:SetAlpha(0.5)
+	texture:SetTexCoord(0,0,0,0)
 
 	-- ugly but works
-	button:Show()
 	button.Hide = nothing
-	t:SetAlpha(0.5)
-	t.SetAlpha = nothing
+	texture.SetAlpha = nothing
+	macrotext.Show = nothing
 end
 
 local function bar (barname, buttonname, padding)
