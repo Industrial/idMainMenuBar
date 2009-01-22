@@ -5,7 +5,7 @@ local ML, MC, MR = 'LEFT', 'CENTER', 'RIGHT'
 local BL, BC, BR = 'BOTTOMLEFT', 'BOTTOM', 'BOTTOMRIGHT'
 
 local padding = 3
-local numbuttons = 12
+local buttons_per_bar = 12
 
 local function hide (x)
 	x:Hide()
@@ -20,7 +20,7 @@ local function bar (barname, buttonname, padding)
 
 	f:ClearAllPoints()
 
-	for i = 1, 12 do
+	for i = 1, buttons_per_bar do
 		b = _G[buttonname .. i]
 		t = (_G[buttonname .. i .. 'NormalTexture2'] or _G[buttonname .. i .. 'NormalTexture'])
 		b:SetParent(f)
@@ -35,7 +35,7 @@ local function bar (barname, buttonname, padding)
 			b:SetPoint(ML, _G[buttonname .. i - 1], MR, padding, 0)
 		end
 	end
-	f:SetWidth(b:GetWidth() * 12 + padding * 12)
+	f:SetWidth(b:GetWidth() * buttons_per_bar + padding * buttons_per_bar)
 	f:SetHeight(b:GetHeight())
 	return f
 end
