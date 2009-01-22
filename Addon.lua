@@ -12,9 +12,16 @@ local bar1
 local bar2
 local bar3
 
-local function nothing(...) end
+local nothing
+local process_button
+local create_bar
+local hook_hidegrid
+local onevent
+local enable
 
-local function process_button (button)
+function nothing(...) end
+
+function process_button (button)
 	local name = button:GetName()
 	local icon = _G[name .. 'Icon']
 	local texture = (_G[name .. i .. 'NormalTexture2'] or _G[name .. i .. 'NormalTexture'])
@@ -36,7 +43,7 @@ local function process_button (button)
 	macrotext.Show = nothing
 end
 
-local function bar (barname, buttonname, padding)
+function create_bar (barname, buttonname, padding)
 	local f = _G[barname] or CreateFrame('Frame', barname, UIParent)
 
 	f:ClearAllPoints()
@@ -56,14 +63,20 @@ local function bar (barname, buttonname, padding)
 	return f
 end
 
-local function hookHideGrid (button)
+function hook_hidegrid (button)
 	button:Show()
 end
 
+function onevent (frame, event, ...)
+	if event == 'PLAYER_LOGIN' then
+		enable()
+	end
+end
+
 function enable ()
-	bar1 = bar('idMainMenuBar1', 'ActionButton', padding)
-	bar2 = bar('MultiBarBottomLeft', 'MultiBarBottomLeftButton', padding)
-	bar3 = bar('MultiBarBottomRight', 'MultiBarBottomRightButton', padding)
+	bar1 = create_bar('idMainMenuBar1', 'ActionButton', padding)
+	bar2 = create_bar('MultiBarBottomLeft', 'MultiBarBottomLeftButton', padding)
+	bar3 = create_bar('MultiBarBottomRight', 'MultiBarBottomRightButton', padding)
 
 	_G.UIPARENT_MANAGED_FRAME_POSITIONS['MultiBarBottomLeft'] = nil
 	_G.UIPARENT_MANAGED_FRAME_POSITIONS['MultiBarBottomRight'] = nil
@@ -75,13 +88,7 @@ function enable ()
 	MainMenuBar:Hide()
 	MainMenuBar.Show = nothing
 
-	hooksecurefunc('ActionButton_HideGrid', hookHideGrid)
-end
-
-function onevent (frame, event, ...)
-	if event == 'PLAYER_LOGIN' then
-		enable()
-	end
+	hooksecurefunc('ActionButton_HideGrid', hook_hidegrid)
 end
 
 eventframe:SetScript('OnEvent', onevent)
