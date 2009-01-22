@@ -24,7 +24,7 @@ function nothing(...) end
 function process_button (button)
 	local name = button:GetName()
 	local icon = _G[name .. 'Icon']
-	local texture = (_G[name .. i .. 'NormalTexture2'] or _G[name .. i .. 'NormalTexture'])
+	local texture = (_G[name .. 'NormalTexture2'] or _G[name .. 'NormalTexture'])
 	local macrotext = _G[name .. 'Name']
 
 	button:ClearAllPoints()
