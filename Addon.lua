@@ -14,29 +14,36 @@ end
 
 local function nothing(...) end
 
+local function process_button (button)
+	local name = button:GetName()
+	local texture = (_G[name .. i .. 'NormalTexture2'] or _G[name .. i .. 'NormalTexture'])
+
+	button:ClearAllPoints()
+
+	-- ugly but works
+	button:Show()
+	button.Hide = nothing
+	t:SetAlpha(0.5)
+	t.SetAlpha = nothing
+end
+
 local function bar (barname, buttonname, padding)
 	local f = _G[barname] or CreateFrame('Frame', barname, UIParent)
-	local b, t
 
 	f:ClearAllPoints()
 
 	for i = 1, buttons_per_bar do
-		b = _G[buttonname .. i]
-		t = (_G[buttonname .. i .. 'NormalTexture2'] or _G[buttonname .. i .. 'NormalTexture'])
-		b:SetParent(f)
-		b:ClearAllPoints()
-		b:Show()
-		b.Hide = nothing
-		t:SetAlpha(0.5)
-		t.SetAlpha = nothing
+		button = _G[buttonname .. i]
+		button:SetParent(f)
+		process_button(button)
 		if i == 1 then
-			b:SetPoint(ML, f, ML)
+			button:SetPoint(ML, f, ML)
 		else
-			b:SetPoint(ML, _G[buttonname .. i - 1], MR, padding, 0)
+			button:SetPoint(ML, _G[buttonname .. i - 1], MR, padding, 0)
 		end
 	end
-	f:SetWidth(b:GetWidth() * buttons_per_bar + padding * buttons_per_bar)
-	f:SetHeight(b:GetHeight())
+	f:SetWidth(button:GetWidth() * buttons_per_bar + padding * buttons_per_bar)
+	f:SetHeight(button:GetHeight())
 	return f
 end
 
