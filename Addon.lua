@@ -4,7 +4,7 @@ local TL, TC, TR = 'TOPLEFT', 'TOP', 'TOPRIGHT'
 local ML, MC, MR = 'LEFT', 'CENTER', 'RIGHT'
 local BL, BC, BR = 'BOTTOMLEFT', 'BOTTOM', 'BOTTOMRIGHT'
 
-local padding = 3
+local padding = 1
 local buttons_per_bar = 12
 
 local function hide (x)
