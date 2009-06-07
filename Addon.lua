@@ -43,7 +43,7 @@ function process_button (button)
 	macrotext.Show = nothing
 end
 
-function create_bar (barname, buttonname, padding)
+function create_bar (barname, buttonname, padding, buttons_per_bar)
 	local f = _G[barname] or CreateFrame('Frame', barname, UIParent)
 
 	f:ClearAllPoints()
@@ -74,9 +74,10 @@ function onevent (frame, event, ...)
 end
 
 function enable ()
-	bar1 = create_bar('idMainMenuBar1', 'ActionButton', padding)
-	bar2 = create_bar('MultiBarBottomLeft', 'MultiBarBottomLeftButton', padding)
-	bar3 = create_bar('MultiBarBottomRight', 'MultiBarBottomRightButton', padding)
+	bar1 = create_bar('idMainMenuBar1', 'ActionButton', padding, 12)
+	bar2 = create_bar('MultiBarBottomLeft', 'MultiBarBottomLeftButton', padding, 12)
+	bar3 = create_bar('MultiBarBottomRight', 'MultiBarBottomRightButton', padding, 12)
+	bar4 = create_bar('idMainMenuBar2', 'PetActionButton', padding, 10)
 
 	_G.UIPARENT_MANAGED_FRAME_POSITIONS['MultiBarBottomLeft'] = nil
 	_G.UIPARENT_MANAGED_FRAME_POSITIONS['MultiBarBottomRight'] = nil
@@ -84,6 +85,7 @@ function enable ()
 	bar1:SetPoint(BC, UIParent, BC, 0, padding)
 	bar2:SetPoint(BC, bar1, TC, 0, padding)
 	bar3:SetPoint(BC, bar2, TC, 0, padding)
+	bar4:SetPoint(BC, bar3, TC, 0, padding)
 
 	MainMenuBar:Hide()
 	MainMenuBar.Show = nothing
