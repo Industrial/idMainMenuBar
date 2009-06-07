@@ -19,7 +19,8 @@ local hook_hidegrid
 local onevent
 local enable
 
-function nothing(...) end
+function nothing (...)
+end
 
 function process_button (button)
 	local name = button:GetName()
@@ -77,15 +78,21 @@ function enable ()
 	bar1 = create_bar('idMainMenuBar1', 'ActionButton', padding, 12)
 	bar2 = create_bar('MultiBarBottomLeft', 'MultiBarBottomLeftButton', padding, 12)
 	bar3 = create_bar('MultiBarBottomRight', 'MultiBarBottomRightButton', padding, 12)
-	bar4 = create_bar('idMainMenuBar2', 'PetActionButton', padding, 10)
+	bar4 = create_bar('MultiBarRight', 'MultiBarRightButton', padding, 12)
+	bar5 = create_bar('MultiBarLeft', 'MultiBarLeftButton', padding, 12)
+	bar6 = create_bar('idMainMenuBar2', 'PetActionButton', padding, 10)
 
 	_G.UIPARENT_MANAGED_FRAME_POSITIONS['MultiBarBottomLeft'] = nil
 	_G.UIPARENT_MANAGED_FRAME_POSITIONS['MultiBarBottomRight'] = nil
+	_G.UIPARENT_MANAGED_FRAME_POSITIONS['MultiBarRight'] = nil
+	_G.UIPARENT_MANAGED_FRAME_POSITIONS['MultiBarLeft'] = nil
 
 	bar1:SetPoint(BC, UIParent, BC, 0, padding)
 	bar2:SetPoint(BC, bar1, TC, 0, padding)
 	bar3:SetPoint(BC, bar2, TC, 0, padding)
 	bar4:SetPoint(BC, bar3, TC, 0, padding)
+	bar5:SetPoint(BC, bar4, TC, 0, padding)
+	bar6:SetPoint(BC, bar5, TC, 0, padding)
 
 	MainMenuBar:Hide()
 	MainMenuBar.Show = nothing
