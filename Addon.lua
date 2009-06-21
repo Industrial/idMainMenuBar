@@ -86,7 +86,7 @@ function enable ()
 	bar1:SetPoint(BC, UIParent, BC, 0, padding)
 	bar2:SetPoint(BC, bar1, TC, 0, padding)
 	bar3:SetPoint(BC, bar2, TC, 0, padding)
-	bar4:SetPoint(BC, bar3, TC, 0, padding)
+	--bar4:SetPoint(BC, bar3, TC, 0, padding)
 	--bar5:SetPoint(BC, bar4, TC, 0, padding)
 	bar6:SetPoint(BC, bar4, TC, 0, padding)
 
