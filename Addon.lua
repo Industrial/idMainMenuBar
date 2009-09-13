@@ -44,7 +44,7 @@ function process_button (button)
 end
 
 function create_bar (barname, buttonname, padding, buttons_per_bar)
-	local bar = _G[barname] or CreateFrame('Frame', barname, UIParent)
+	local bar = CreateFrame('Frame', barname, UIParent)
 
 	bar:ClearAllPoints()
 
@@ -86,11 +86,11 @@ end
 
 function enable ()
 	bar1 = create_bar('idMainMenuBar1', 'ActionButton', padding, 12)
-	bar2 = create_bar('MultiBarBottomLeft', 'MultiBarBottomLeftButton', padding, 12)
-	bar3 = create_bar('MultiBarBottomRight', 'MultiBarBottomRightButton', padding, 12)
-	bar4 = create_bar('MultiBarRight', 'MultiBarRightButton', padding, 12)
-	bar5 = create_bar('MultiBarLeft', 'MultiBarLeftButton', padding, 12)
-	bar6 = create_bar('idMainMenuBar2', 'PetActionButton', padding, 10)
+	bar2 = create_bar('idMainMenuBar2', 'MultiBarBottomLeftButton', padding, 12)
+	bar3 = create_bar('idMainMenuBar3', 'MultiBarBottomRightButton', padding, 12)
+	bar4 = create_bar('idMainMenuBar4', 'MultiBarRightButton', padding, 12)
+	bar5 = create_bar('idMainMenuBar5', 'MultiBarLeftButton', padding, 12)
+	bar6 = create_bar('idMainMenuBar6', 'PetActionButton', padding, 10)
 
 	bar1:SetPoint(BC, UIParent, BC, 0, padding)
 	bar2:SetPoint(BC, bar1, TC, 0, padding)
